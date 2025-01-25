@@ -41,6 +41,5 @@ public class ProjectileScript : MonoBehaviour
     public void SetShooter(GameObject player)
     {
         shooter = player;
-        Debug.Log(shooter.ToString() + " shot this fireball");
     }
 }
