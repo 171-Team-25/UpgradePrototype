@@ -33,13 +33,9 @@ public class PlayerClass : Damageable
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //gameObject.AddComponent<AsolUpgrade>();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             gameObject.AddComponent<AsolUpgrade>();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             gameObject.AddComponent<ShieldUpgrade>();
         }

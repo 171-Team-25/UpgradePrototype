@@ -59,7 +59,7 @@ public class AbilityProjectile : MonoBehaviour
             {
                 return; // do nothin if player is hit
             }
-            damageable.TakeDamage(damage, teamName.blue);
+            damageable.TakeDamage(damage);
             Debug.Log($"Hit {other.name} with damage {damage}");
 
             Destroy(gameObject); // Destroy fireball on impact
