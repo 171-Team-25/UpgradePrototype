@@ -25,6 +25,7 @@ public class PlayerClass : Damageable
         {
             this.GetComponent<Renderer>().material.color = Color.blue;
         }
+        gameObject.transform.position = GameManager.Instance.lobbySpawnPoint;
     }
 
     // Update is called once per frame
@@ -63,7 +64,11 @@ public class PlayerClass : Damageable
     private IEnumerator RespawnCoroutine(Vector3 spawnPoint, float time)
     {
         yield return new WaitForSeconds(time);
-        transform.position = spawnPoint;
+        GetComponent<CharacterController>().enabled = false;
+        gameObject.transform.position = spawnPoint;
+        GetComponent<CharacterController>().enabled = true;
+        health = maxHealth;
+        Debug.Log("RESPAWNED!");
         gameObject.SetActive(true);
     }
 

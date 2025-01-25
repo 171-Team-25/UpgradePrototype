@@ -11,13 +11,13 @@ public class PlayerAttack : MonoBehaviour
     public float spawnOffset = 1f;        // Offset distance to spawn the projectile outside the character
     public float rotationSpeed = 10f;     // The speed at which the player rotates toward the shooting direction
 
-    private Camera mainCamera;
+    private Camera playerCam;
     private bool canShoot = true;         // Variable to prevent multiple shots per click
 
     private void Start()
     {
         // Get the main camera reference
-        mainCamera = Camera.main;
+        playerCam = GetComponentInChildren<Camera>();
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -29,7 +29,8 @@ public class PlayerAttack : MonoBehaviour
             Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
 
             // Convert screen position to world position (3D)
-            Ray ray = mainCamera.ScreenPointToRay(mouseScreenPos);
+            Ray ray = playerCam.ScreenPointToRay(mouseScreenPos);
+            //Debug.DrawRay(ray.origin, Vector3.up);
             RaycastHit hit;
 
             // We use a raycast to determine where the mouse intersects the world plane
@@ -58,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
 
                 // Rotate the player toward the target direction
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = targetRotation;
+                //transform.rotation = targetRotation;
 
                 // Set canShoot to false to prevent firing again until the click is released
                 canShoot = false;
