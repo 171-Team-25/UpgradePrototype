@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         upgradeCards.Add(new UpgradeCard(currCardVisual, typeof(ShieldUpgrade), "Surround yourself with a forcefield which can absorb 100 damage"));
         currCardVisual = Resources.Load<Sprite>("CardVisuals/RegenUpgrade");
         upgradeCards.Add(new UpgradeCard(currCardVisual, typeof(RegenUpgrade), "Heal 10 health every 5 seconds"));
+        upgradeCards.Add(new UpgradeCard(currCardVisual, typeof(MultishotUpgrade), "Multishot"));
     }
 
     public List<UpgradeCard> GetRandomUpgradeCards(int numberOfCards)

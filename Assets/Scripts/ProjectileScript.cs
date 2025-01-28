@@ -16,6 +16,21 @@ public class ProjectileScript : MonoBehaviour
 
         // Destroy the projectile after a set lifetime if it doesn't collide with anything
         Destroy(gameObject, lifetime);
+
+        // Ignore collisions with other projectiles
+        Collider[] colliders = GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            Collider[] allColliders = FindObjectsOfType<Collider>();
+            foreach (Collider otherCollider in allColliders)
+            {
+                if (otherCollider.CompareTag("Projectile"))
+                {
+                    //Debug.Log("Ignoring collision between " + collider.name + " and " + otherCollider.name);
+                    Physics.IgnoreCollision(collider, otherCollider);
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
