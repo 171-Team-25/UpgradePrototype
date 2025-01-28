@@ -15,6 +15,8 @@ public class PlayerAttack : MonoBehaviour
 
     public event Action OnFire;
 
+    private Animator animator;
+
     private void Start()
     {
         // Get the main camera reference
@@ -32,12 +34,29 @@ public class PlayerAttack : MonoBehaviour
         playerInput.actions["Fire"].canceled += OnFireInput;
         playerInput.actions["Fire"].started += OnFireInput;
     }
-     
+
+    public void SetModel(GameObject model)
+    {
+        animator = model.GetComponent<Animator>();
+        if (animator != null)
+        {
+            Debug.Log("Animator found.");
+        }
+        else
+        {
+            Debug.LogError("Animator component not found on the model.");
+        }
+    }
+
     public void OnFireInput(InputAction.CallbackContext context)
     {
         // Check if the action was a "started" action (meaning a single press)
         if (context.started && canShoot)
         {
+            if (animator != null)
+            {
+                animator.SetTrigger("Throwing");
+            }
             // Get mouse position in screen coordinates
             Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
 

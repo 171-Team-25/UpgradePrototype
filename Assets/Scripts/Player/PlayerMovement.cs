@@ -10,10 +10,26 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private Vector2 inputDirection;
     private bool isSprinting = false;  // Track if Sprint is active
+    private Animator animator;
+    private Transform modelTransform;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+    }
+
+    public void SetModel(GameObject model)
+    {
+        animator = model.GetComponent<Animator>();
+        if (animator != null)
+        {
+            modelTransform = animator.transform;
+            Debug.Log("Animator found and modelTransform assigned.");
+        }
+        else
+        {
+            Debug.LogError("Animator component not found on the model.");
+        }
     }
 
     // This method matches the "move" action in the Input Actions asset
@@ -42,6 +58,21 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             characterController.Move(move * moveSpeed * Time.deltaTime);
+        }
+
+        // Rotate the model to face the movement direction
+        if (move != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            modelTransform.rotation = Quaternion.Slerp(modelTransform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+
+        // Update animator parameters
+        if (animator != null)
+        {
+            bool isMoving = move != Vector3.zero;
+            animator.SetBool("Running", isSprinting && isMoving);
+            animator.SetBool("Walking", !isSprinting && isMoving);
         }
     }
 }

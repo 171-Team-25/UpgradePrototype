@@ -611,6 +611,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   team: 0
+  modelPrefab: {fileID: 5149234835796309258, guid: d11dfd1773c9ecc43957179e284e7b55, type: 3}
 --- !u!1001 &2186220848090021842
 PrefabInstance:
   m_ObjectHideFlags: 0

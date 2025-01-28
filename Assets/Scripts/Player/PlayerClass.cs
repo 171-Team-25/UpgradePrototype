@@ -11,6 +11,8 @@ public enum teamName{
 
 public class PlayerClass : Damageable
 {
+    public GameObject modelPrefab;   // Reference to the higher quality model prefab
+
     void Start()
     {
         health = maxHealth;
@@ -25,6 +27,31 @@ public class PlayerClass : Damageable
             this.GetComponent<Renderer>().material.color = Color.blue;
         }
         gameObject.transform.position = GameManager.Instance.lobbySpawnPoint;
+
+
+        // Visual Stuff Below
+        // Disable the capsule's MeshRenderer to make it invisible
+        MeshRenderer capsuleRenderer = GetComponent<MeshRenderer>();
+        if (capsuleRenderer != null)
+        {
+            capsuleRenderer.enabled = false;
+        }
+        // Instantiate the model and parent it to the capsule
+        GameObject modelInstance = Instantiate(modelPrefab, gameObject.transform);
+        modelInstance.transform.localPosition = new Vector3(0, -1.12f, 0);
+        modelInstance.transform.localRotation = Quaternion.identity;
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement == null)
+        {
+            playerMovement = this.AddComponent<PlayerMovement>();
+        }
+        playerMovement.SetModel(modelInstance);
+        PlayerAttack playerAttack = GetComponent<PlayerAttack>();
+        if (playerAttack == null)
+        {
+            playerAttack = this.AddComponent<PlayerAttack>();
+        }
+        playerAttack.SetModel(modelInstance);
     }
 
     // Update is called once per frame
